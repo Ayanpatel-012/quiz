@@ -8,6 +8,7 @@ android {
     namespace = "com.example.quiz"
     compileSdk {
         version = release(36)
+
     }
 
     defaultConfig {
