@@ -8,10 +8,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -95,62 +99,62 @@ private fun QuizContent(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(horizontal = Dimens.PaddingStandard, vertical = Dimens.PaddingVertical),
-        verticalArrangement = Arrangement.SpaceBetween
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = Dimens.PaddingStandard, vertical = Dimens.PaddingVertical)
     ) {
-        Column {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = stringResource(
-                        id = R.string.question_counter,
-                        state.currentQuestionIndex + 1,
-                        state.totalQuestions
-                    ),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                
-                TimerDisplay(
-                    timeLeft = state.timeLeft,
-                    isLocked = state.isAnswerLocked
-                )
-            }
-            
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Text(
-                text = state.currentQuestion.question.text,
-                style = MaterialTheme.typography.headlineSmall,
-                color = MaterialTheme.colorScheme.onBackground,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = Dimens.PaddingLarge)
+                text = stringResource(
+                    id = R.string.question_counter,
+                    state.currentQuestionIndex + 1,
+                    state.totalQuestions
+                ),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground
             )
             
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = Dimens.PaddingLarge),
-                verticalArrangement = Arrangement.spacedBy(Dimens.PaddingSmall)
-            ) {
-                state.shuffledOptions.forEach { option ->
-                    OptionItem(
-                        option = option,
-                        isSelected = state.selectedAnswer == option,
-                        isCorrectAnswer = option == state.currentQuestion.correctAnswer,
-                        isLocked = state.isAnswerLocked,
-                        showFeedback = state.isAnswerLocked,
-                        onClick = { onAnswerSelected(option) }
-                    )
-                }
-            }
-            
-            if (state.isAnswerLocked && state.isAnswerCorrect != null) {
-                FeedbackMessage(isCorrect = state.isAnswerCorrect)
+            TimerDisplay(
+                timeLeft = state.timeLeft,
+                isLocked = state.isAnswerLocked
+            )
+        }
+        
+        Text(
+            text = state.currentQuestion.question.text,
+            style = MaterialTheme.typography.headlineSmall,
+            color = MaterialTheme.colorScheme.onBackground,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = Dimens.PaddingLarge)
+        )
+        
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = Dimens.PaddingLarge),
+            verticalArrangement = Arrangement.spacedBy(Dimens.PaddingSmall)
+        ) {
+            state.shuffledOptions.forEach { option ->
+                OptionItem(
+                    option = option,
+                    isSelected = state.selectedAnswer == option,
+                    isCorrectAnswer = option == state.currentQuestion.correctAnswer,
+                    isLocked = state.isAnswerLocked,
+                    showFeedback = state.isAnswerLocked,
+                    onClick = { onAnswerSelected(option) }
+                )
             }
         }
+        
+        if (state.isAnswerLocked && state.isAnswerCorrect != null) {
+            FeedbackMessage(isCorrect = state.isAnswerCorrect)
+        }
+        
+        Spacer(modifier = Modifier.height(Dimens.PaddingLarge))
         
         if (state.selectedAnswer != null && !state.isAnswerLocked) {
             Button(
