@@ -1,6 +1,7 @@
 # Quiz App
 
 A simple trivia quiz app built with Jetpack Compose, Hilt, Room, and Retrofit.
+link to download -> https://drive.google.com/file/d/1uONrZROn9y3TL4w-qQwZa7eWS7_4SvVO/view?usp=sharing
 
 ## Features
 
