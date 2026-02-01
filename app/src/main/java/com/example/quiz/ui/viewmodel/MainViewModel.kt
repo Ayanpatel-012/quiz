@@ -104,6 +104,20 @@ class MainViewModel @Inject constructor(
     }
     
     fun restartQuiz() {
+        viewModelScope.launch {
+            val storedQuestions = questionUseCase.getStoredQuestions()
+            if (storedQuestions.isNotEmpty()) {
+                questions = storedQuestions
+                currentQuestionIndex = 0
+                score = 0
+                loadCurrentQuestion()
+            } else {
+                startQuiz()
+            }
+        }
+    }
+    
+    fun startNewQuiz() {
         startQuiz()
     }
 

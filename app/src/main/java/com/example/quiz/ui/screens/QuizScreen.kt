@@ -36,7 +36,8 @@ fun QuizScreen(
     onAnswerSelected: (String) -> Unit,
     onSubmitAnswer: () -> Unit,
     onNextQuestion: () -> Unit,
-    onRestartQuiz: () -> Unit = {}
+    onRestartQuiz: () -> Unit = {},
+    onStartNewQuiz: () -> Unit = {}
 ) {
     when (uiState) {
         is QuizUiState.Initial -> {}
@@ -76,7 +77,8 @@ fun QuizScreen(
             CompletedScreen(
                 score = uiState.score,
                 totalQuestions = uiState.totalQuestions,
-                onRestartQuiz = onRestartQuiz
+                onRestartQuiz = onRestartQuiz,
+                onStartNewQuiz = onStartNewQuiz
             )
         }
     }
@@ -318,7 +320,8 @@ private fun FeedbackMessage(isCorrect: Boolean) {
 private fun CompletedScreen(
     score: Int,
     totalQuestions: Int,
-    onRestartQuiz: () -> Unit
+    onRestartQuiz: () -> Unit,
+    onStartNewQuiz: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -366,6 +369,25 @@ private fun CompletedScreen(
         ) {
             Text(
                 text = stringResource(id = R.string.restart_quiz),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(vertical = Dimens.PaddingSmall)
+            )
+        }
+        
+        Button(
+            onClick = onStartNewQuiz,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = Dimens.PaddingStandard),
+            shape = RoundedCornerShape(Dimens.CornerRadiusMedium),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary,
+                contentColor = MaterialTheme.colorScheme.onSecondary
+            )
+        ) {
+            Text(
+                text = stringResource(id = R.string.start_new_quiz),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(vertical = Dimens.PaddingSmall)

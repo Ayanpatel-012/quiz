@@ -52,6 +52,9 @@ class MainActivity : ComponentActivity() {
                                 },
                                 onRestartQuiz = {
                                     viewModel.restartQuiz()
+                                },
+                                onStartNewQuiz = {
+                                    viewModel.startNewQuiz()
                                 }
                             )
                         }
