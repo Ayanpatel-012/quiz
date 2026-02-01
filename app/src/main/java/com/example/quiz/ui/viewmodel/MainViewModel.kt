@@ -38,7 +38,15 @@ class MainViewModel @Inject constructor(
                 score = 0
                 loadCurrentQuestion()
             } catch (e: Exception) {
-                _uiState.value = QuizUiState.Error(e.message ?: "Unknown error occurred")
+                val storedQuestions = questionUseCase.getStoredQuestions()
+                if (storedQuestions.isNotEmpty()) {
+                    questions = storedQuestions
+                    currentQuestionIndex = 0
+                    score = 0
+                    loadCurrentQuestion()
+                } else {
+                    _uiState.value = QuizUiState.Error(e.message ?: "Unknown error occurred")
+                }
             }
         }
     }
