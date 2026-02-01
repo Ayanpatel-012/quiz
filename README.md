@@ -13,18 +13,13 @@ A simple trivia quiz app built with Jetpack Compose, Hilt, Room, and Retrofit.
 - Restart same quiz or start new quiz
 
 ## Screenshots
+<img width="455" height="936" alt="Screenshot 2026-02-01 at 12 13 58 PM" src="https://github.com/user-attachments/assets/9057b4ee-3d0e-4484-a5c3-d43518c0be97" />
+<img width="477" height="939" alt="Screenshot 2026-02-01 at 12 22 39 PM" src="https://github.com/user-attachments/assets/f430c6be-770d-45f2-ada4-282f91857c5d" />
+<img width="439" height="919" alt="Screenshot 2026-02-01 at 12 22 50 PM" src="https://github.com/user-attachments/assets/0afd580b-32fd-4de7-b919-7b76dae6360c" />
+<img width="450" height="933" alt="Screenshot 2026-02-01 at 12 22 56 PM" src="https://github.com/user-attachments/assets/18fcafb7-56df-4678-8491-d94c3f59d25c" />
+<img width="450" height="933" alt="Screenshot 2026-02-01 at 12 23 04 PM" src="https://github.com/user-attachments/assets/3c1c06eb-4d3f-49c0-b31d-7165587930f1" />
+<img width="468" height="929" alt="Screenshot 2026-02-01 at 12 23 35 PM" src="https://github.com/user-attachments/assets/cd289d45-7c62-46de-9d86-a9dd1946c16d" />
 
-<p align="center">
-  <img src="assets/Screenshot_2026-02-01_at_12.13.58_PM-ac1e4ccc-cab5-4d2d-bbf3-7d43d583ffa2.png" width="200" alt="Start Screen"/>
-  <img src="assets/Screenshot_2026-02-01_at_12.22.39_PM-8cf05731-05b5-4f8c-86a9-55b5822f6668.png" width="200" alt="Active Question"/>
-  <img src="assets/Screenshot_2026-02-01_at_12.22.50_PM-697dd293-58d3-4560-8568-94967a4417fa.png" width="200" alt="Answer Selected"/>
-</p>
-
-<p align="center">
-  <img src="assets/Screenshot_2026-02-01_at_12.22.56_PM-f913969e-5cd6-4749-a83c-f6de5d15355b.png" width="200" alt="Answer Feedback"/>
-  <img src="assets/Screenshot_2026-02-01_at_12.23.04_PM-a3f8d184-363b-4a64-95a0-dfd33f443520.png" width="200" alt="Correct Answer"/>
-  <img src="assets/Screenshot_2026-02-01_at_12.23.35_PM-97868781-37d9-4702-9e75-069fad4474cc.png" width="200" alt="Quiz Completed"/>
-</p>
 
 ## App States
 
