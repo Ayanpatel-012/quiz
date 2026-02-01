@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -27,7 +28,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             QuizTheme {
-                Surface(modifier = Modifier.fillMaxSize()) {
+                Surface(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .safeDrawingPadding()
+                ) {
                     val uiState by viewModel.uiState.collectAsState()
                     
                     when (uiState) {

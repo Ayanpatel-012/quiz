@@ -95,7 +95,7 @@ private fun QuizContent(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(Dimens.PaddingStandard),
+            .padding(horizontal = Dimens.PaddingStandard, vertical = Dimens.PaddingVertical),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column {
@@ -327,7 +327,7 @@ private fun CompletedScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(Dimens.PaddingStandard),
+            .padding(horizontal = Dimens.PaddingStandard, vertical = Dimens.PaddingVertical),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

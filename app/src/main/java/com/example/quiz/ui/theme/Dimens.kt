@@ -8,4 +8,5 @@ object Dimens {
     val PaddingStandard = 16.dp
     val PaddingSmall = 8.dp
     val PaddingLarge = 24.dp
+    val PaddingVertical = 10.dp
 }

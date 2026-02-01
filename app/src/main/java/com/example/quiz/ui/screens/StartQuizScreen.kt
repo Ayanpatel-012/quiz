@@ -29,7 +29,7 @@ fun StartQuizScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(Dimens.PaddingStandard),
+            .padding(horizontal = Dimens.PaddingStandard, vertical = Dimens.PaddingVertical),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
