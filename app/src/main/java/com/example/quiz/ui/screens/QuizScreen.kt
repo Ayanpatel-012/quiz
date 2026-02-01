@@ -35,7 +35,8 @@ fun QuizScreen(
     uiState: QuizUiState,
     onAnswerSelected: (String) -> Unit,
     onSubmitAnswer: () -> Unit,
-    onNextQuestion: () -> Unit
+    onNextQuestion: () -> Unit,
+    onRestartQuiz: () -> Unit = {}
 ) {
     when (uiState) {
         is QuizUiState.Initial -> {}
@@ -72,16 +73,11 @@ fun QuizScreen(
         }
         
         is QuizUiState.Completed -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "Quiz Completed!",
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-            }
+            CompletedScreen(
+                score = uiState.score,
+                totalQuestions = uiState.totalQuestions,
+                onRestartQuiz = onRestartQuiz
+            )
         }
     }
 }
@@ -315,5 +311,65 @@ private fun FeedbackMessage(isCorrect: Boolean) {
             color = textColor,
             fontWeight = FontWeight.Bold
         )
+    }
+}
+
+@Composable
+private fun CompletedScreen(
+    score: Int,
+    totalQuestions: Int,
+    onRestartQuiz: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .padding(Dimens.PaddingStandard),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = stringResource(id = R.string.quiz_completed),
+            style = MaterialTheme.typography.headlineLarge,
+            color = MaterialTheme.colorScheme.onBackground,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
+        )
+        
+        Text(
+            text = stringResource(id = R.string.your_score),
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onBackground,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(top = Dimens.PaddingLarge)
+        )
+        
+        Text(
+            text = stringResource(id = R.string.score_format, score, totalQuestions),
+            style = MaterialTheme.typography.displayLarge,
+            color = MaterialTheme.colorScheme.primary,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(top = Dimens.PaddingSmall)
+        )
+        
+        Button(
+            onClick = onRestartQuiz,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = Dimens.PaddingLarge),
+            shape = RoundedCornerShape(Dimens.CornerRadiusMedium),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            )
+        ) {
+            Text(
+                text = stringResource(id = R.string.restart_quiz),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(vertical = Dimens.PaddingSmall)
+            )
+        }
     }
 }

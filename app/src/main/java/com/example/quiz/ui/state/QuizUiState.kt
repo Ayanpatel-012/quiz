@@ -16,5 +16,8 @@ sealed class QuizUiState {
         val isAnswerCorrect: Boolean?
     ) : QuizUiState()
     data class Error(val message: String) : QuizUiState()
-    object Completed : QuizUiState()
+    data class Completed(
+        val score: Int,
+        val totalQuestions: Int
+    ) : QuizUiState()
 }

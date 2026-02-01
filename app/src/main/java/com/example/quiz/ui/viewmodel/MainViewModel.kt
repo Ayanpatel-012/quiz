@@ -27,6 +27,7 @@ class MainViewModel @Inject constructor(
     private var currentQuestionIndex = 0
     private var timerJob: Job? = null
     private var isTimerPaused = false
+    private var score = 0
 
     fun startQuiz() {
         viewModelScope.launch {
@@ -34,6 +35,7 @@ class MainViewModel @Inject constructor(
             try {
                 questions = questionUseCase.fetchQuestions(Constants.TOTAL_QUESTIONS)
                 currentQuestionIndex = 0
+                score = 0
                 loadCurrentQuestion()
             } catch (e: Exception) {
                 _uiState.value = QuizUiState.Error(e.message ?: "Unknown error occurred")
@@ -43,7 +45,10 @@ class MainViewModel @Inject constructor(
 
     private fun loadCurrentQuestion() {
         if (currentQuestionIndex >= questions.size) {
-            _uiState.value = QuizUiState.Completed
+            _uiState.value = QuizUiState.Completed(
+                score = score,
+                totalQuestions = questions.size
+            )
             return
         }
 
@@ -97,6 +102,10 @@ class MainViewModel @Inject constructor(
     fun resumeTimer() {
         isTimerPaused = false
     }
+    
+    fun restartQuiz() {
+        startQuiz()
+    }
 
     fun selectAnswer(answer: String) {
         val currentState = _uiState.value as? QuizUiState.Quiz ?: return
@@ -110,6 +119,10 @@ class MainViewModel @Inject constructor(
         if (currentState.isAnswerLocked || currentState.selectedAnswer == null) return
 
         val isCorrect = currentState.selectedAnswer == currentState.currentQuestion.correctAnswer
+        
+        if (isCorrect) {
+            score++
+        }
         
         timerJob?.cancel()
         _uiState.value = currentState.copy(
@@ -126,6 +139,10 @@ class MainViewModel @Inject constructor(
             currentState.selectedAnswer == currentState.currentQuestion.correctAnswer
         } else {
             false
+        }
+        
+        if (isCorrect) {
+            score++
         }
         
         _uiState.value = currentState.copy(

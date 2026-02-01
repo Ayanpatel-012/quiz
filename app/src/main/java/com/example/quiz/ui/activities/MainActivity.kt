@@ -49,6 +49,9 @@ class MainActivity : ComponentActivity() {
                                 },
                                 onNextQuestion = {
                                     viewModel.moveToNextQuestion()
+                                },
+                                onRestartQuiz = {
+                                    viewModel.restartQuiz()
                                 }
                             )
                         }
