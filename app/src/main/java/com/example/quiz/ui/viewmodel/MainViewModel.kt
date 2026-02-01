@@ -1,5 +1,6 @@
 package com.example.quiz.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quiz.data.model.QuestionResponse
@@ -29,7 +30,12 @@ class MainViewModel @Inject constructor(
                 val result = questionUseCase.fetchQuestions(limit)
                 _questions.value = result
             } catch (e: Exception) {
+                Log.d("TEST1234", "error")
             }
+            val x = questionUseCase.getStoredQuestions()
+            Log.d("TEST1234", "${x.size}")
         }
+
+
     }
 }

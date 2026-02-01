@@ -9,6 +9,10 @@ class QuestionUseCaseImpl @Inject constructor(
 ) : QuestionUseCase {
     
     override suspend fun fetchQuestions(limit: Int): List<QuestionResponse> {
-        return questionRepository.getQuestions(limit)
+        return questionRepository.fetchAndStoreQuestions(limit)
+    }
+    
+    override suspend fun getStoredQuestions(): List<QuestionResponse> {
+        return questionRepository.getStoredQuestions()
     }
 }
