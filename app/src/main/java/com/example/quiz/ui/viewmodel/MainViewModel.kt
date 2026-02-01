@@ -26,6 +26,7 @@ class MainViewModel @Inject constructor(
     private var questions: List<QuestionResponse> = emptyList()
     private var currentQuestionIndex = 0
     private var timerJob: Job? = null
+    private var isTimerPaused = false
 
     fun startQuiz() {
         viewModelScope.launch {
@@ -65,12 +66,18 @@ class MainViewModel @Inject constructor(
 
     private fun startTimer() {
         timerJob?.cancel()
+        isTimerPaused = false
         timerJob = viewModelScope.launch {
             val currentState = _uiState.value as? QuizUiState.Quiz ?: return@launch
             var timeLeft = currentState.timeLeft
 
             while (timeLeft > 0) {
                 delay(1000)
+                
+                if (isTimerPaused) {
+                    continue
+                }
+                
                 timeLeft--
                 
                 val state = _uiState.value as? QuizUiState.Quiz ?: return@launch
@@ -81,6 +88,14 @@ class MainViewModel @Inject constructor(
                 lockAnswer()
             }
         }
+    }
+
+    fun pauseTimer() {
+        isTimerPaused = true
+    }
+
+    fun resumeTimer() {
+        isTimerPaused = false
     }
 
     fun selectAnswer(answer: String) {
